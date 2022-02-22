@@ -21,5 +21,5 @@ app.listen(port, () =>
   console.log('Listening on http://localhost:' + port));
 
 // Import the rest-api setup function
-const setupRESTapi = require('/backend/rest-api');
+const setupRESTapi = require('./backend/rest-api');
 setupRESTapi(app);

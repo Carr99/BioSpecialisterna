@@ -2,5 +2,24 @@
   "dependencies": {
     "better-sqlite3": "^7.5.0",
     "express": "^4.17.3"
-  }
+  },
+  "name": "biospecialisterna",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carr99/BioSpecialisterna.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Carr99/BioSpecialisterna/issues"
+  },
+  "homepage": "https://github.com/Carr99/BioSpecialisterna#readme"
 }
