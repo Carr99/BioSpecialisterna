@@ -7,16 +7,16 @@ document.querySelector('body').addEventListener('click', function (event) {
 
 
     event.preventDefault();
-    rotuer(newPage);
+    router(newPage);
 });
 
-async function rotuer(aV) {
+async function router(aV) {
     let route = location.pathname;
     if (aV != null) {
         route = aV;
     }
     route = route === '/' ? '/start' : route;
-    route = '/partials' + route + '.html';
+    route = '/html' + route + '.html';
     // load partial
     let content = await (await fetch(route)).text();
     content.includes('<title>Error</title > ') && location.replace(' / ');
@@ -24,6 +24,6 @@ async function rotuer(aV) {
 
 }
 
-window.addEventListener('popstate', rotuer);
+window.addEventListener('popstate', router);
 
-rotuer();
+router();
