@@ -35,9 +35,9 @@ async function router() {
     
     if (route === '/html/start.html') {
         getTrailers();
+    }else if (route === '/html/movies.html') {
+        listMovies();
     }
-
-
 }
 
 window.addEventListener('popstate', router);

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Luckiest+Guy&family=Source+Sans+Pro:wght@700&display=swap%27");
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700,800');
 
 body {
   margin: 0;
@@ -85,4 +86,60 @@ footer {
   font-weight: normal;
   font-size: 39px;
   margin: 0 0 10px;
+}
+
+.card {
+  background-color: rgba(31, 31, 31, 0.8);
+  border-radius: 5px;
+  height: 150px;
+  padding: 10px;
+  position: relative;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.card:hover {
+  background-color: rgba(31, 31, 31, 1);
+  cursor: pointer;
+}
+
+.cardImage {
+position: relative;
+height: 100%;
+border-radius: 5px;
+display: inline-block;
+float: left;
+}
+
+.infoSection {
+  height: auto;
+  width: auto;
+  position: relative;
+  padding: 10px;
+  margin-left: auto;
+  display: inline-block;
+  float: left;
+}
+
+.infoSection .title{
+  color: black;
+  padding: 0;
+  margin: 0;
+  font-size: 30px;
+}
+
+.infoSection .description {
+  font-size: 20px;
+  line-height: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.infoSection .otherInfo{
+  font-size: 20px;
+  color: rgb(224, 224, 63);
+  font-style: bold;
+  line-height: auto;
+  padding: 0;
+  margin: 0;
 }
