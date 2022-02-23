@@ -31,6 +31,10 @@ async function router() {
     let content = await (await fetch(route)).text();
     content.includes('<title>Error</title > ') && location.replace(' / ');
     document.querySelector('main').innerHTML = content;
+
+    if (route === '/html/movies.html') {
+        listMovies();
+    }
 }
 
 window.addEventListener('popstate', router);
