@@ -26,16 +26,16 @@ async function router() {
     console.log(route);
     route = route === '/' ? '/start' : route;
     route = '/html' + route + '.html';
-    console.log(route); 
+    console.log(route);
 
     // load partial
     let content = await (await fetch(route)).text();
     content.includes('<title>Error</title > ') && location.replace(' / ');
     document.querySelector('main').innerHTML = content;
-    
+
     if (route === '/html/start.html') {
         getTrailers();
-    }else if (route === '/html/movies.html') {
+    } else if (route === '/html/movies.html') {
         listMovies();
     }
 }

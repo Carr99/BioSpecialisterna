@@ -1,0 +1,10 @@
+.moviePoster {
+  width: 20%;
+  margin: 10px;
+}
+
+.movieTrailer {
+  width: 70%;
+  height: 250px;
+  margin: 10px;
+}

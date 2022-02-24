@@ -36,6 +36,10 @@ h3 {
   color: #182335;
 }
 
+h4 {
+  color: #eae4cc;
+}
+
 header {
   background-color: #e15546;
   padding: 30px;
@@ -64,6 +68,7 @@ main section {
   opacity: 0.95;
   padding: 20px;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 section article {
@@ -104,11 +109,11 @@ footer {
 }
 
 .cardImage {
-position: relative;
-height: 100%;
-border-radius: 5px;
-display: inline-block;
-float: left;
+  position: relative;
+  height: 100%;
+  border-radius: 5px;
+  display: inline-block;
+  float: left;
 }
 
 .infoSection {
@@ -121,7 +126,7 @@ float: left;
   float: left;
 }
 
-.infoSection .title{
+.infoSection .title {
   color: black;
   padding: 0;
   margin: 0;
@@ -135,7 +140,7 @@ float: left;
   margin: 0;
 }
 
-.infoSection .otherInfo{
+.infoSection .otherInfo {
   font-size: 20px;
   color: rgb(224, 224, 63);
   font-style: bold;
