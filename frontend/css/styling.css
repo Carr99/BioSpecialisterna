@@ -2,18 +2,18 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700,800');
 
 body {
-  margin: 0;
-  background-color: #182335;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center center;
-  font-family: "Lora", serif;
-  font-size: 17px;
-  line-height: 135%;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+    margin: 0;
+    background-color: #182335;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    font-family: "Lora", serif;
+    font-size: 17px;
+    line-height: 135%;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 h1,
@@ -21,103 +21,143 @@ h2,
 h3,
 h4,
 nav {
-  font-family: "Source Sans Pro", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
 }
 
 h1 {
-  color: whitesmoke;
+    color: whitesmoke;
 }
 
 h2 {
-  color: #eae4cc;
+    color: #eae4cc;
 }
 
 h3 {
-  color: #182335;
+    color: #182335;
 }
 
 h4 {
-  color: #eae4cc;
+    color: #eae4cc;
 }
 
 header {
-  background-color: #e15546;
-  padding: 30px;
-  margin-bottom: 30px;
+    background-color: #e15546;
+    padding: 30px;
+    margin-bottom: 30px;
 }
 
 nav a {
-  color: rgb(218, 214, 214);
-  padding: 0 10px;
-  text-decoration: none;
+    color: rgb(218, 214, 214);
+    padding: 0 10px;
+    text-decoration: none;
 }
 
 nav .active {
-  color: white;
+    color: white;
 }
 
 main {
-  flex: 1;
-  margin: 0 20px;
+    flex: 1;
+    margin: 0 20px;
 }
 
 main section {
-  margin: 0 auto;
-  max-width: 780px;
-  background-color: #1f2f49;
-  opacity: 0.95;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+    margin: 0 auto;
+    max-width: 780px;
+    background-color: #1f2f49;
+    opacity: 0.95;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 section article {
-  background-color: #eae4cc;
-  border-radius: 10px;
-  padding: 5px;
-  margin-bottom: 8px;
+    background-color: #eae4cc;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 8px;
 }
 
 footer {
-  text-align: center;
-  margin-top: 30px;
-  color: white;
-  padding: 20px;
-  background-color: #6c5b7b;
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+    padding: 20px;
+    background-color: #6c5b7b;
 }
 
 .logo {
-  font-family: "Luckiest Guy";
-  font-weight: normal;
-  font-size: 39px;
-  margin: 0 0 10px;
+    font-family: "Luckiest Guy";
+    font-weight: normal;
+    font-size: 39px;
+    margin: 0 0 10px;
 }
 
 .inputBox {
-  margin: 0;
-  border-radius: 5px;
-  padding: 20px 70px;
-  background-color: white;
-  color: black;
+    margin: 0;
+    border-radius: 5px;
+    padding: 20px 70px;
+    background-color: white;
+    color: black;
 }
 
 .loginPage {
-  width: 50%;
-  margin: 0 auto;
+    width: 50%;
+    margin: 0 auto;
+    display: block;
 }
 
 .loginPage input {
-  text-align: left;
-  width: 60%;
+    text-align: left;
+    width: 100%;
 }
 
 .loginPage .buttonLink {
-  background-color: greenyellow;
-  color: black;
-  margin-top: 10px;
-  width: 100%;
-  height: 40px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+    background-color: forestgreen;
+    color: white;
+    margin-top: 10px;
+    padding-top: 10px;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    font-family: Arial, serif;
+}
+
+.loginPage #forgotPassword {
+    font-size: 16px;
+    font-weight: normal;
+    text-decoration: none;
+    color: cornflowerblue;
+}
+
+.loginPage .passwordForgot {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.input-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.icon {
+    padding: 10px;
+    background: dodgerblue;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+.input-field:focus {
+    border: 2px solid dodgerblue;
 }

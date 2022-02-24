@@ -4,11 +4,20 @@ function login() {
       <h2>Login</h2>
       <div class="loginPage">
         <h3 style="color: white">Email</h3>
-        <input type="text" id="email" class="inputBox" placeholder="name@email.com">
-        <h3 style="color: white">Password</h3>
-        <input type="text" id="password" class="inputBox" placeholder="Enter your Password"><br>
-        <a href="/forgotPassword" style="text-decoration: none; color: white; margin-left: 60%">forgot password?</a><br>
-        <a href="/#" class="buttonLink">Login</a>
+        <div class="input-container">
+            <i class="fa fa-envelope icon"></i>
+            <input class="input-field" type="text" id="email" placeholder="name@email.com">
+        </div>
+        <h3 style="color: white">Password<br></h3>
+        <div class="input-container">
+            <i class="fa fa-key icon"></i>
+            <input class="input-field" id="password" type="password" placeholder="Enter your password">
+        </div>
+        <div class="passwordForgot">
+            <a href="/forgotPassword" id="forgotPassword">Forgot password?</a>
+        </div>
+
+        <a href="/#" class="buttonLink">Sign In</a>
         <a href="/register" class="buttonLink">Register</a>
       </div>
     `;
@@ -19,9 +28,11 @@ function forgotPassword() {
     document.querySelector('.forgotPassword').innerHTML = `
       <h2>Forgot Password</h2>
       <div class="loginPage">
-        <h3 style="color: white">Enter Email</h3>
-        <input type="text" id="email" class="inputBox" placeholder="name@email.com">
-        <a href="/register" class="buttonLink">Send Reset Email</a>
+        <div class="input-container">
+            <i class="fa fa-envelope icon"></i>
+            <input class="input-field" type="text" id="email" placeholder="name@email.com">
+        </div>
+        <a href="/register" class="buttonLink">Send Email</a>
       </div>
     `;
 }
@@ -33,12 +44,20 @@ function registerPage() {
       <h2>Register new Account</h2>
       <div class="loginPage">
         <h3 style="color: white">Email</h3>
-        <input type="text" id="email" class="inputBox" placeholder="name@email.com">
-        <h3 style="color: white">Password</h3>
-        <input type="text" id="password" class="inputBox" placeholder="Enter your Password"><br>
-        <h3 style="color: white">Confirm Password</h3>
-        <input type="text" id="confirmPassword" class="inputBox" placeholder="Confirm Password"><br>
-        <a href="/register" id="registerNewAccountBtn" class="buttonLink">Register</a>
+        <div class="input-container">
+            <i class="fa fa-envelope icon"></i>
+            <input type="text" id="email" class="input-field" placeholder="name@email.com">
+        </div>
+        <h3 style="color: white">Password<br></h3>
+        <div class="input-container">
+            <i class="fa fa-key icon"></i>
+            <input type="text" id="password" class="input-field" placeholder="Enter your Password"><br>
+        </div>
+        <div class="input-container">
+            <i class="fa fa-key icon"></i>
+            <input type="text" id="confirmPassword" class="input-field" placeholder="Confirm Password"><br>
+        </div>
+        <a href="/register" class="buttonLink" id="registerNewAccountBtn">Register</a>
       </div>
     `;
 
