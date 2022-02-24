@@ -46,7 +46,22 @@ function registerPage() {
 }
 
 function registerNewAccount() {
-    let email = document.querySelector("#email").innerHTML;
-    let password = document.querySelector("#password").innerHTML;
-    // Register account once databse is available...
+    let email = document.querySelector("#email").value;
+    let password = document.querySelector("#password").value;
+
+    let query = {
+        "email": email,
+        "password": password
+    }
+    sendToDb(query)
+}
+
+function sendToDb(data) {
+    fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).then(res => {
+        // Do something with response from server
+    });
 }
