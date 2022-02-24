@@ -37,6 +37,12 @@ async function router() {
         getTrailers();
     } else if (route === '/html/movies.html') {
         listMovies();
+    } else if (route === '/html/login.html') {
+        login();
+    } else if (route === '/html/register.html') {
+        registerPage();
+    } else if (route === '/html/forgotPassword.html') {
+        forgotPassword();
     }
 }
 
