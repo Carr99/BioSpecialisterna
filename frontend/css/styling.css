@@ -93,62 +93,6 @@ footer {
   margin: 0 0 10px;
 }
 
-.card {
-  background-color: rgba(31, 31, 31, 0.8);
-  border-radius: 5px;
-  height: 150px;
-  padding: 10px;
-  position: relative;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.card:hover {
-  background-color: rgba(31, 31, 31, 1);
-  cursor: pointer;
-}
-
-.cardImage {
-  position: relative;
-  height: 100%;
-  border-radius: 5px;
-  display: inline-block;
-  float: left;
-}
-
-.infoSection {
-  height: auto;
-  width: auto;
-  position: relative;
-  padding: 10px;
-  margin-left: auto;
-  display: inline-block;
-  float: left;
-}
-
-.infoSection .title {
-  color: black;
-  padding: 0;
-  margin: 0;
-  font-size: 30px;
-}
-
-.infoSection .description {
-  font-size: 20px;
-  line-height: auto;
-  padding: 0;
-  margin: 0;
-}
-
-.infoSection .otherInfo {
-  font-size: 20px;
-  color: rgb(224, 224, 63);
-  font-style: bold;
-  line-height: auto;
-  padding: 0;
-  margin: 0;
-}
-
 .inputBox {
   margin: 0;
   border-radius: 5px;
