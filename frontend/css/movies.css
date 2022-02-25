@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,700,800");
-
+/* CSS FOR MOVIE CARDS ON MOVIES.HTML  */
 .movies {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -11,7 +11,7 @@
   display: block;
   width: 780;
   height: 350px;
-  margin: 100px auto;
+  margin: 80px auto;
   overflow: hidden;
   border-radius: 10px;
   -webkit-transition: all 0.4s;
@@ -85,7 +85,7 @@
   position: relative;
   float: left;
   margin-right: 20px;
-  height: 120px;
+  height: 140px;
   -webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
           box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
 }
@@ -117,8 +117,8 @@
     width: 50%;
   }
   .info_section {
-    background: -webkit-gradient(linear, left top, right top, color-stop(50%, #0d0d0c), to(transparent));
-    background: linear-gradient(to right, #0d0d0c 50%, transparent 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(50%, #111110), to(transparent));
+    background: linear-gradient(to right, #111110 50%, transparent 100%);
   }
   .blur_back {
     width: 80%;
@@ -162,12 +162,59 @@
     display: inline-grid;
   }
 
-  .movies {
-    padding: 0;
+  .filter_header {
+    font-size: 16px;
+    color: #f5f5f5;
   }
+
+  .filter_button {
+    font-size: 10px !important;
+  }
+
 }
 
 .background_img {
   background: url("https://www.gorillapopcorn.se/wp-content/uploads/2018/04/POPCORN-BUCKET.jpg");
 }
-/*# sourceMappingURL=style.css.map */
+
+/* CSS FOR FILTER-BOX AND BUTTONS*/
+.filter_container {
+border: 2px solid rgba(255, 255, 255, 0.13);
+border-radius: 10px;
+text-align: center;
+padding: 20px;
+}
+
+.filter_header {
+  font-size: 20px;
+  margin: 0 0 10px 0;
+}
+
+.filter_button {
+  align-items: center;
+  background: #f5f5f5;
+  border: 0 solid #E2E8F0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  color: #1A202C;
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 600;
+  height: 56px;
+  justify-content: center;
+  line-height: 24px;
+  overflow-wrap: break-word;
+  text-decoration: none;
+  width: 20%;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  padding: 2px 10px;
+  margin: 0;
+  font-family: 'Montserrat', helvetica, arial, sans-serif;
+}
+
+.filter_button:hover {
+  scale: 1.06;
+}

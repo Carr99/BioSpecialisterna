@@ -1,3 +1,8 @@
+var g_rated = false;
+var pg_7 = false;
+var pg_11 = false;
+var pg_15 = false;
+
 function listMovies() {
   let html = `
     <div class="movie_card" id="braveheart">
@@ -63,4 +68,63 @@ function listMovies() {
 </div>
   `
   document.querySelector('.movies').innerHTML += html;
+}
+
+function setupButtonListeners() {
+  let children = document.querySelector('#filter_buttons').childNodes;
+  
+  for (const child of children) {
+    if (child.nodeName === 'BUTTON') {
+      console.log(child)
+      if (child.id === 'g_rated') {
+        child.addEventListener('click', () => {
+          if (!g_rated) {
+            g_rated = true;
+            child.style.background = 'black';
+            child.style.color = 'white'
+          } else {
+            g_rated = false;
+            child.style.background = '#f5f5f5';
+            child.style.color = 'black'
+          }
+        });
+      } else if(child.id === 'pg_7') {
+        child.addEventListener('click', () => {
+          if (!pg_7) {
+            pg_7 = true;
+            child.style.background = 'black';
+            child.style.color = 'white'
+          } else {
+            pg_7 = false;
+            child.style.background = '#f5f5f5';
+            child.style.color = 'black'
+          }
+        });
+      } else if (child.id === 'pg_11') {
+        child.addEventListener('click', () => {
+          if (!pg_11) {
+            pg_11 = true;
+            child.style.background = 'black';
+            child.style.color = 'white'
+          } else {
+            pg_11 = false;
+            child.style.background = '#f5f5f5';
+            child.style.color = 'black'
+          }
+        });
+      } else if (child.id === 'pg_15') {
+        child.addEventListener('click', () => {
+          if (!pg_15) {
+            pg_15 = true;
+            child.style.background = 'black';
+            child.style.color = 'white'
+          } else {
+            pg_15 = false;
+            child.style.background = '#f5f5f5';
+            child.style.color = 'black'
+          }
+        });
+      }
+    }
+  }
 }
