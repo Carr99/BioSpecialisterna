@@ -20,6 +20,33 @@ module.exports = function setupRESTapi(app) {
         res.json(tablesAndViews);
     });
 
+    app.get('/api/seatsForScreening/screening' + '/:Id', (req, res) => {
+
+
+        let totalStmt = db.prepare(`
+            SELECT Seat.seatId as id, Seat.row, Seat.column
+            From Seat, Screening
+            WHERE screeningId == :Id AND Seat.theaterId == Screening.theaterId
+        `);
+
+        let totalSeats = totalStmt.all(req.params)
+
+        let bookedStmt = db.prepare(`
+            SELECT Seat.seatId as id, Seat.row, Seat.column
+            From Seat, Booking
+            WHERE Booking.screeningId == :Id AND Seat.seatId == Booking.seatId;
+        `)
+
+        let bookedSeats = bookedStmt.all(req.params);
+
+        let result = [totalSeats, bookedSeats]
+
+        res.json(result);
+
+
+
+    })
+
     app.post('/api/register', (req, res) => {
         let data = req.body;
         let email = data.email;

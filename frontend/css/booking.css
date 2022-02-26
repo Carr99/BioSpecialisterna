@@ -1,0 +1,10 @@
+.booking{
+    text-align: center;
+
+}
+#seats{
+    background-color: black;
+    width: 80%;
+    height: auto;
+    display: inline;
+}

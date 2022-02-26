@@ -43,6 +43,8 @@ async function router() {
         registerPage();
     } else if (route === '/html/forgotPassword.html') {
         forgotPassword();
+    } else if (route === '/html/booking.html'){
+        booking(1);
     }
 }
 
