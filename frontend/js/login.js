@@ -17,10 +17,19 @@ function login() {
             <a href="/forgotPassword" id="forgotPassword">Forgot password?</a>
         </div>
 
-        <a href="/#" class="buttonLink">Sign In</a>
+        <a class="buttonLink" style="cursor:pointer;" id="loginBtn">Sign In</a>
         <a href="/register" class="buttonLink">Register</a>
       </div>
     `;
+    document.querySelector("#loginBtn").addEventListener("click", function () {
+        let email = document.querySelector("#email").value;
+        let password = document.querySelector("#password").value;
+        let user = {
+            "email": email,
+            "password": password
+        }
+        sendLogin(user)
+    });
 }
 
 function forgotPassword() {
@@ -57,7 +66,7 @@ function registerPage() {
             <i class="fa fa-key icon"></i>
             <input type="text" id="confirmPassword" class="input-field" placeholder="Confirm Password"><br>
         </div>
-        <a href="/register" class="buttonLink" id="registerNewAccountBtn">Register</a>
+        <a class="buttonLink" id="registerNewAccountBtn" style="cursor: pointer">Register</a>
       </div>
     `;
 
@@ -72,15 +81,37 @@ function registerNewAccount() {
         "email": email,
         "password": password
     }
-    sendToDb(query)
+    registerUser(query)
 }
 
-function sendToDb(data) {
-    fetch("http://localhost:3000/api/register", {
+function sendLogin(data) {
+    fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
     }).then(res => {
-        // Do something with response from server
+        if (res.status === 409) {
+            document.querySelector("#email").value = "Account already exists"
+        }
     });
+}
+
+function registerUser(data) {
+    fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).then(async res => {
+        if (res.status === 409) {
+            document.querySelector("#email").value = "Account already exists"
+        } else {
+            let token = await res.json();
+            storeToken(token);
+            // Redirect user to main page
+        }
+    });
+}
+
+function storeToken(token) {
+    localStorage.setItem('token', token);
 }

@@ -1,8 +1,18 @@
 // Import the better-sqlite3 module
 const betterSqlite3 = require('better-sqlite3');
 
+// Lib to generate JWT Token
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+// Global access
+dotenv.config();
+
 // Connect to a SQLite database
 const db = betterSqlite3('backend/bioSpecialisterna.db');
+
+// Storing users and their tokens in memory before converting into DB
+let usersAndTokens = {}
+
 
 // Get the names of all the tables and views in the db
 let tablesAndViews = db.prepare(`
@@ -25,16 +35,30 @@ module.exports = function setupRESTapi(app) {
         let email = data.email;
         let password = data.password;
 
-        let stmt = db.prepare(`
-            INSERT INTO User ('email', 'password', 'isAdmin')
-            VALUES ('${email}', '${password}', false);
-        `);
-        let result = stmt.run();
-        if (result.changes >= 1)
-            res.json({
-                "operation": "success"
-            })
+        let user = findUser(email);
+        if (user === undefined) {
+            let stmt = db.prepare(`
+                INSERT INTO User ('email', 'password', 'isAdmin')
+                VALUES ('${email}', '${password}', false);
+            `);
+            let result = stmt.run();
+            if (result.changes >= 1)
+                res.json(generateJWTToken(user))
+        } else {
+            res.status(409).json({"operation": "User already exists"})
+        }
+    });
 
+    app.post('/api/login', (req, res) => {
+        let data = req.body;
+        let email = data.email;
+        let password = data.password;
+
+        let user = findUser(email);
+        if (user !== undefined)
+            res.json(generateJWTToken(user));
+        else
+            res.status(401);
     });
 
     // Loop through all tables and views and create REST-routes for them
@@ -69,6 +93,37 @@ module.exports = function setupRESTapi(app) {
             res.json(result);
         });
 
+    }
+
+    function findUser(email) {
+        return db.prepare('SELECT * FROM USER WHERE email = ?').get(email);
+    }
+
+    function generateJWTToken(user) {
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+        let data = {
+            time: Date(),
+            userId: 12,
+        }
+        const token = jwt.sign(data, jwtSecretKey);
+        return token;
+    }
+
+    // Validates if client JWT Token is valid
+    function validateJWTToken(token) {
+        let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+        try {
+            const verified = jwt.verify(token, jwtSecretKey);
+            if (verified) {
+                return true;
+            } else {
+                return false
+            }
+        } catch (error) {
+            return error;
+        }
     }
 
 }
