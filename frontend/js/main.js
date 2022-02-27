@@ -24,7 +24,7 @@ document.querySelector('body').addEventListener('click', function (event) {
 async function router() {
     let route = location.pathname;
     console.log(route);
-    route = route === '/' ? '/start' : route;
+    route = route === '/' ? '/movie-info' : route;
     route = '/html' + route + '.html';
     console.log(route);
 
@@ -44,6 +44,8 @@ async function router() {
         registerPage();
     } else if (route === '/html/forgotPassword.html') {
         forgotPassword();
+    } else if (route === '/html/movie-info.html') {
+        movieInfoLister();
     }
 }
 

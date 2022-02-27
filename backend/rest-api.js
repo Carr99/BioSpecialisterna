@@ -45,7 +45,7 @@ module.exports = function setupRESTapi(app) {
             if (result.changes >= 1)
                 res.json(generateJWTToken(user))
         } else {
-            res.status(409).json({"operation": "User already exists"})
+            res.status(409).json({ "operation": "User already exists" })
         }
     });
 
@@ -62,7 +62,7 @@ module.exports = function setupRESTapi(app) {
     });
 
     // Loop through all tables and views and create REST-routes for them
-    for (let {name} of tablesAndViews) {
+    for (let { name } of tablesAndViews) {
         // Create a route to get (read) all posts from a table
         app.get('/api/' + name, (req, res) => {
             // create a prepared statement
@@ -77,15 +77,15 @@ module.exports = function setupRESTapi(app) {
         });
 
         // Create a route to get a single post from a table based on its id
-        app.get('/api/' + name + '/:id', (req, res) => {
+        app.get('/api/' + name + '/:idName/:id', (req, res) => {
             // Create a prepared statement with a parameter :id as part of it
             let stmt = db.prepare(`
                 SELECT *
                 FROM ${name}
-                WHERE id = :id
+                WHERE ${req.params.idName} = ${req.params.id}
             `);
             // Get the result or set it to null if no result found
-            let result = stmt.all(req.params)[0] || null;
+            let result = stmt.all()[0] || null;
             // Change status code of the response to 404 if no result found
             if (result === null) {
                 res.status(404);
