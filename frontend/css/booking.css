@@ -37,6 +37,7 @@
     background-color: #ffffff;
 }
 #createBooking{
+    background-color: gray;
     color: red;
     padding: 0 10px;
     text-decoration: none;

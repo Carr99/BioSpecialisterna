@@ -44,7 +44,7 @@ async function router() {
     } else if (route === '/html/forgotPassword.html') {
         forgotPassword();
     } else if (route === '/html/booking.html'){
-        booking(1);
+        booking(2, "dummy@gmail.com");
     }
 }
 

@@ -4,7 +4,9 @@ let map;
 let juniorTickets = 0;
 let standardTickets = 0;
 let seniorTickets = 0;
-function booking(screeningId){
+let selected = false;
+let selection = [];
+function booking(screeningId, email){
 
 
     canvas = document.querySelector("#seats");
@@ -17,6 +19,15 @@ function booking(screeningId){
         seatHover(e);
 
     });
+    canvas.addEventListener("click", function(e){
+        selectSeats(e)
+
+    });
+    canvas.addEventListener("mouseleave", function(e){
+        if(!selected){
+            draw(ctx);
+        }
+    })
     let bookButton = document.querySelector("#createBooking");
 
     let juniorMinus = document.querySelector("#juniorMinus");
@@ -29,6 +40,10 @@ function booking(screeningId){
     let juniorCount = document.querySelector("#juniorCount");
     let standardCount = document.querySelector("#standardCount");
     let seniorCount = document.querySelector("#seniorCount");
+
+    bookButton.addEventListener("click", function(e) {
+        bookTickets(screeningId, email);
+    });
 
 
     juniorMinus.addEventListener("click", () =>{
@@ -74,8 +89,6 @@ async function populateSeats(ctx, screeningId){
     let rawData = await fetch("http://localhost:3000/api/seatsForScreening/screening/" + screeningId)
     let seats = await rawData.json();
 
-        console.log(seats);
-
         let rows = Math.max.apply(Math, seats[0].map(function(o) { return o.row; })) + 1
         let columns = Math.max.apply(Math, seats[0].map(function(o) { return o.column; })) + 1
 
@@ -95,6 +108,25 @@ async function populateSeats(ctx, screeningId){
 
 }
 function seatHover(e){
+    if(selected === false){
+        let selection = calculateSelection(e);
+        draw(ctx, selection, "green");
+    }
+    
+
+}
+function selectSeats(e){
+    if(selected === false){
+        let selection = calculateSelection(e);
+        draw(ctx, selection, "blue");
+        selected = true;
+    }else{
+        selected = false;
+    }
+
+
+}
+function calculateSelection(e){
     let rect = canvas.getBoundingClientRect();
     let scaleX = canvas.width / rect.width;   // relationship bitmap vs. element for X
     let scaleY = canvas.height / rect.height;
@@ -102,9 +134,16 @@ function seatHover(e){
     let y = Math.trunc(((e.clientY - rect.top) * scaleY)/ tileHeight);
 
     let totalTickets = juniorTickets + standardTickets + seniorTickets;
-    console.log("total tickets: " + totalTickets)
-    let selection = [];
+    selection = [];
     for (let i = 0; i < totalTickets; i++){
+        let ageGroup = "";
+        if(i < juniorTickets){
+            ageGroup = "Junior";
+        }else if(i < juniorTickets + standardTickets){
+            agegroup = "Adult";
+        }else{
+            ageGroup = "Senior";
+        }
         let seatFound = false;
         while(!seatFound){
             if(x > map[0].length -1){
@@ -123,7 +162,7 @@ function seatHover(e){
             }
 
             if(map[y][x] === 0){
-                selection.push([y,x]);
+                selection.push([y,x, ageGroup]);
                 seatFound = true;
                 x++;
             }else{
@@ -131,14 +170,12 @@ function seatHover(e){
             }
         }
     }
-    console.log("Selected seats" + selection.toString())
-    draw(ctx, selection);
+    return selection;
 }
-function draw(ctx, selection = [[-1,-1]]){
+function draw(ctx, selection = [[-1,-1]], color = ""){
     for (let row = 0; row < map.length; row++) {
         for (let column = 0; column < map[row].length; column++) {
           let tile = map[row][column];
-          console.log( Array[0,5] === selection[0])
           if (tile === 0) {
               ctx.fillStyle = "grey";
           }
@@ -147,7 +184,7 @@ function draw(ctx, selection = [[-1,-1]]){
           }
           for(seat of selection){
               if (seat[0] === row && seat[1] === column){
-                  ctx.fillStyle = "green";
+                  ctx.fillStyle = color;
               } 
           }
           ctx.fillRect(column * tileWidth + (tileWidth*0.1), row * tileHeight + (tileHeight*0.1), tileWidth -(tileWidth*0.2), tileHeight -(tileHeight*0.2));
@@ -155,3 +192,38 @@ function draw(ctx, selection = [[-1,-1]]){
         }
       }
 }
+async function bookTickets(screeningId, email){
+    for (const seat of selection) {
+        console.log(seat);
+
+        let rawData = await fetch('http://localhost:3000/api/seatId/'+ screeningId + '/' + seat[1] + '/' + seat[0],{
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
+        });
+
+        let seatId = await rawData.json();
+
+        let query = {
+            "email": email,
+            "screeningId": screeningId,
+            "ageGroup": seat[2],
+            "seatId" : seatId[0].seatId
+        };
+
+        rawData = await fetch('http://localhost:3000/api/book', {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(query)
+        });
+  }
+}
+
+
+
+/*
+
+rawData = await fetch('http://localhost:3000/api/book', {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(query)
+}); */

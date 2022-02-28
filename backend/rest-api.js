@@ -46,6 +46,37 @@ module.exports = function setupRESTapi(app) {
 
 
     })
+   
+    app.post('/api/book', (req, res) =>{
+        let data = req.body;
+        let email = data.email;
+        let screeningId = data.screeningId;
+        let ticketType = data.ageGroup;
+        let seatId = data.seatId;
+
+        let stmt = db.prepare(`
+            INSERT INTO Booking ('userEmail', 'seatId', 'ticketType', 'screeningId')
+            VALUES ('${email}', ${seatId}, '${ticketType}', ${screeningId});
+        `);
+        result = stmt.run();
+
+        if (result.changes >= 1)
+        res.json({
+            "operation": "success"
+        })
+    });
+    app.get('/api/seatId' + '/:screeningId/:x/:y', (req, res) =>{
+
+        
+        let stmt = db.prepare(`
+        SELECT Seat.seatId
+        From Seat
+        Where Seat.theaterId == (Select theaterId FROM Screening WHERE screeningId == :screeningId) AND row == :y AND column == :x
+
+    `);
+        let seatId = stmt.all(req.params);
+        res.json(seatId);
+    });
 
     app.post('/api/register', (req, res) => {
         let data = req.body;
