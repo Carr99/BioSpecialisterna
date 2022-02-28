@@ -8,3 +8,18 @@
   height: 250px;
   margin: 10px;
 }
+
+.goBooking {
+  background-color: #eae4cc;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 8px;
+}
+
+.goBooking:hover {
+  background-color: #dfd8be;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}

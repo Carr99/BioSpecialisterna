@@ -1,18 +1,30 @@
 document.querySelector('body').addEventListener('click', function (event) {
 
-
     let aTag = event.target.closest('a');
+    let article = event.target.closest('article');
 
-    // do nothing if not click on an atag
-    if (!aTag) {
-        return;
-    }
-
-    let href = aTag.getAttribute('href');
-
-    // check if external link then open in a new window
-    if (href.indexOf('http') === 0) {
-        aTag.setAttribute('target', '_blank');
+    let href;
+    if (aTag || article) {
+        if (aTag) {
+            href = aTag.getAttribute('href');
+        } else {
+            let id = article.getAttribute('id');
+            if (id.includes('&')) {
+                let partialInfo = id.split('&');
+                if (partialInfo[0] == 'infoPage') {
+                    href = '/movies'; //should go to booking page
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
+        }
+        if (href.indexOf('http') === 0) {
+            aTag.setAttribute('target', '_blank');
+            return;
+        }
+    } else {
         return;
     }
 
@@ -24,7 +36,7 @@ document.querySelector('body').addEventListener('click', function (event) {
 async function router() {
     let route = location.pathname;
     console.log(route);
-    route = route === '/' ? '/start' : route;
+    route = route === '/' ? '/main' : route;
     route = '/html' + route + '.html';
     console.log(route);
 
