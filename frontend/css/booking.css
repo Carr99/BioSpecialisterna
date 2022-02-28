@@ -1,10 +1,57 @@
 .booking{
+
+}
+.theater{
+    width: 60%;
     text-align: center;
+    float: left;
+
 
 }
 #seats{
     background-color: black;
-    width: 80%;
+    width: 100%;
     height: auto;
-    display: inline;
 }
+.ticketType{
+    text-align: center;
+    background-color: gray;
+}
+.ticketType button, div{
+    display: inline-block;
+}
+
+
+
+.ticketType button{
+    background-color: gray;
+    color: rgb(218, 214, 214);
+    padding: 0 10px;
+    text-decoration: none;
+    border: 3px solid #ffffff;
+    border-radius: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.ticketType button:hover{
+    background-color: #ffffff;
+}
+#createBooking{
+    color: red;
+    padding: 0 10px;
+    text-decoration: none;
+    border: 3px solid rgb(255, 0, 0);
+    border-radius: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+
+}
+#createBooking:hover{
+    margin-top: 50px;
+    background-color: rgb(187, 49, 49);
+}
+#rightContainer{
+    margin-top: 20px;
+    float: right;
+}
+
