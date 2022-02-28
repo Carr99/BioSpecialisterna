@@ -34,7 +34,7 @@ async function listMovies() {
 }
 
 function displayMovieCard(movie) {
-  
+
   let html = `
     <div class="movie_card" id="${movie.movieId}">
       <div class="info_section">
@@ -55,19 +55,21 @@ function displayMovieCard(movie) {
   <div class="blur_back background_img"></div>
 </div>
 `
-  
+
   document.querySelector('.movies').innerHTML += html;
 }
 
 function setupCardHandlers() {
 
   let cards = document.getElementsByClassName('movie_card');
-  
+
   for (let card of cards) {
     card.addEventListener('click', () => {
       // Öppna movieInfo med hjälp av movieId variablen nedan
       movieId = card.id;
       console.log(movieId)
+      history.pushState(null, null, '/movie-info');
+      router();
     });
   }
 }

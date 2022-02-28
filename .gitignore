@@ -11,6 +11,8 @@ BioSpecialisterna.iml
 /backend/bioSpecialisterna.db
 /backend/database/**
 
+*.DS_Store
+
 # Logs
 logs
 *.log
