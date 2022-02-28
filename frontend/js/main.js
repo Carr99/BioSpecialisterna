@@ -48,8 +48,8 @@ async function router() {
     if (route === '/html/start.html') {
         getTrailers();
     } else if (route === '/html/movies.html') {
+        setupFilterHandlers();
         listMovies();
-        setupButtonListeners();
     } else if (route === '/html/login.html') {
         login();
     } else if (route === '/html/register.html') {

@@ -92,7 +92,7 @@ module.exports = function setupRESTapi(app) {
             }
             res.json(result);
         });
-
+        
     }
 
     function findUser(email) {
