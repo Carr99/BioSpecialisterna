@@ -121,3 +121,4 @@ dist
 =======
 .tern-port
 >>>>>>> master
+*.db
