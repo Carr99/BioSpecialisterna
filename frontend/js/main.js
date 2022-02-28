@@ -36,7 +36,7 @@ document.querySelector('body').addEventListener('click', function (event) {
 async function router() {
     let route = location.pathname;
     console.log(route);
-    route = route === '/' ? '/main' : route;
+    route = route === '/' ? '/start' : route;
     route = '/html' + route + '.html';
     console.log(route);
 
