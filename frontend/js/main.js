@@ -12,7 +12,8 @@ document.querySelector('body').addEventListener('click', function (event) {
             if (id.includes('&')) {
                 let partialInfo = id.split('&');
                 if (partialInfo[0] == 'infoPage') {
-                    href = '/movies'; //should go to booking page
+                    href = '/booking'; //should go to booking page
+
                 } else {
                     return;
                 }
@@ -56,8 +57,12 @@ async function router() {
         registerPage();
     } else if (route === '/html/forgotPassword.html') {
         forgotPassword();
+
     } else if (route === '/html/movie-info.html') {
         movieInfoLister();
+
+    } else if (route === '/html/booking.html'){
+        booking();
     }
 }
 
