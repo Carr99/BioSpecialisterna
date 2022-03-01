@@ -6,7 +6,9 @@ let standardTickets = 0;
 let seniorTickets = 0;
 let selected = false;
 let selection = [];
-function booking(screeningId, email){
+let screeningId = 1;
+let email = "dummy@gmail.com";
+function booking(){
 
 
     canvas = document.querySelector("#seats");
