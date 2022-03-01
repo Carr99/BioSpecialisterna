@@ -73,63 +73,61 @@ function setupCardHandlers() {
 }
 
 function setupFilterHandlers() {
-  let children = document.querySelector('#filter_buttons').childNodes;
+  let buttons = document.getElementsByClassName('filter_button');
 
-  for (let child of children) {
-    if (child.nodeName === 'BUTTON') {
-      if (child.id === 'g_rated') {
-        child.addEventListener('click', () => {
+  for (let button of buttons) {
+    if (button.id === 'g_rated') {
+        button.addEventListener('click', () => {
           if (!g_rated) {
             g_rated = true;
-            child.style.background = 'black';
-            child.style.color = 'white'
+            button.style.background = 'black';
+            button.style.color = 'white'
           } else {
             g_rated = false;
-            child.style.background = '#f5f5f5';
-            child.style.color = 'black'
+            button.style.background = '#f5f5f5';
+            button.style.color = 'black'
           }
           listMovies();
         });
-      } else if (child.id === 'pg_7') {
-        child.addEventListener('click', () => {
+      } else if (button.id === 'pg_7') {
+        button.addEventListener('click', () => {
           if (!pg_7) {
             pg_7 = true;
-            child.style.background = 'black';
-            child.style.color = 'white'
+            button.style.background = 'black';
+            button.style.color = 'white'
           } else {
             pg_7 = false;
-            child.style.background = '#f5f5f5';
-            child.style.color = 'black'
+            button.style.background = '#f5f5f5';
+            button.style.color = 'black'
           }
           listMovies();
         });
-      } else if (child.id === 'pg_11') {
-        child.addEventListener('click', () => {
+      } else if (button.id === 'pg_11') {
+        button.addEventListener('click', () => {
           if (!pg_11) {
             pg_11 = true;
-            child.style.background = 'black';
-            child.style.color = 'white'
+            button.style.background = 'black';
+            button.style.color = 'white'
           } else {
             pg_11 = false;
-            child.style.background = '#f5f5f5';
-            child.style.color = 'black'
+            button.style.background = '#f5f5f5';
+            button.style.color = 'black'
           }
           listMovies();
         });
-      } else if (child.id === 'pg_15') {
-        child.addEventListener('click', () => {
+      } else if (button.id === 'pg_15') {
+        button.addEventListener('click', () => {
           if (!pg_15) {
             pg_15 = true;
-            child.style.background = 'black';
-            child.style.color = 'white'
+            button.style.background = 'black';
+            button.style.color = 'white'
           } else {
             pg_15 = false;
-            child.style.background = '#f5f5f5';
-            child.style.color = 'black'
+            button.style.background = '#f5f5f5';
+            button.style.color = 'black'
           }
           listMovies();
-        });
-      }
+        });      
     }
   }
 }
