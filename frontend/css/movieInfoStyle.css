@@ -1,12 +1,23 @@
 .moviePoster {
-  width: 20%;
-  margin: 10px;
+  height: 300px;
+  width: 30%;
 }
 
-.movieTrailer {
-  width: 70%;
-  height: 250px;
-  margin: 10px;
+.movieDesc {
+  color: antiquewhite;
+}
+
+.infoRow {
+  margin-top: 5px;
+}
+
+.movieInfoBox {
+  color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  width: fit-content;
+  display: inline;
 }
 
 .goBooking {
@@ -17,7 +28,7 @@
 }
 
 .goBooking:hover {
-  background-color: #dfd8be;
+  background-color: #8b8a86;
   border-radius: 10px;
   padding: 5px;
   margin-bottom: 8px;

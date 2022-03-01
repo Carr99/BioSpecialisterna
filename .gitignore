@@ -11,6 +11,8 @@ BioSpecialisterna.iml
 /backend/bioSpecialisterna.db
 /backend/database/**
 
+*.DS_Store
+
 # Logs
 logs
 *.log
@@ -119,3 +121,4 @@ dist
 =======
 .tern-port
 >>>>>>> master
+*.db
