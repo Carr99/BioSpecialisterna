@@ -19,8 +19,12 @@
     text-align: center;
     background-color: gray;
 }
-.ticketType button, div{
-    display: inline-block;
+.ticketType button{
+display: inline-block;
+}
+
+.ticketType div {
+display: inline-block;
 }
 
 
