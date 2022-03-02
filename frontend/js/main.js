@@ -34,8 +34,21 @@ document.querySelector('body').addEventListener('click', function (event) {
     router();
 });
 
+function makeMenuChoiceActive(route) {
+    let aTagsInNav = document.querySelectorAll('nav a');
+    for (let aTag of aTagsInNav) {
+        aTag.classList.remove('active');
+        let href = aTag.getAttribute('href');
+        console.log(href)
+        if (href === route) {
+            aTag.classList.add('active');
+        }
+    }
+}
+
 async function router() {
     let route = location.pathname;
+    makeMenuChoiceActive(route);
     console.log(route);
     route = route === '/' ? '/start' : route;
     route = '/html' + route + '.html';

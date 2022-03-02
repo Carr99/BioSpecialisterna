@@ -54,6 +54,7 @@ nav a {
 
 nav .active {
     color: white;
+    text-decoration: underline;
 }
 
 main {
