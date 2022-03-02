@@ -78,58 +78,34 @@ function setupFilterHandlers() {
   let buttons = document.getElementsByClassName('filter_button');
 
   for (let button of buttons) {
-    if (button.id === 'g_rated') {
-        button.addEventListener('click', () => {
-          if (!g_rated) {
-            g_rated = true;
-            button.style.background = 'black';
-            button.style.color = 'white'
-          } else {
-            g_rated = false;
-            button.style.background = '#f5f5f5';
-            button.style.color = 'black'
-          }
-          listMovies();
-        });
+    button.addEventListener('click', () => {
+      button.classList.toggle('filter_button_active');
+      if (button.id === 'g_rated') {
+        if (!g_rated) {
+          g_rated = true;
+        } else {
+          g_rated = false;
+        }
       } else if (button.id === 'pg_7') {
-        button.addEventListener('click', () => {
-          if (!pg_7) {
-            pg_7 = true;
-            button.style.background = 'black';
-            button.style.color = 'white'
-          } else {
-            pg_7 = false;
-            button.style.background = '#f5f5f5';
-            button.style.color = 'black'
-          }
-          listMovies();
-        });
+        if (!pg_7) {
+          pg_7 = true;
+        } else {
+          pg_7 = false;
+        }
       } else if (button.id === 'pg_11') {
-        button.addEventListener('click', () => {
-          if (!pg_11) {
-            pg_11 = true;
-            button.style.background = 'black';
-            button.style.color = 'white'
-          } else {
-            pg_11 = false;
-            button.style.background = '#f5f5f5';
-            button.style.color = 'black'
-          }
-          listMovies();
-        });
+        if (!pg_11) {
+          pg_11 = true;
+        } else {
+          pg_11 = false;
+        }
       } else if (button.id === 'pg_15') {
-        button.addEventListener('click', () => {
-          if (!pg_15) {
-            pg_15 = true;
-            button.style.background = 'black';
-            button.style.color = 'white'
-          } else {
-            pg_15 = false;
-            button.style.background = '#f5f5f5';
-            button.style.color = 'black'
-          }
-          listMovies();
-        });      
-    }
+        if (!pg_15) {
+          pg_15 = true;
+        } else {
+          pg_15 = false;
+        }
+      }
+      listMovies();
+    });
   }
 }

@@ -225,3 +225,8 @@ margin: 0 auto;
 .filter_button:hover {
   scale: 1.06;
 }
+
+.filter_button_active {
+background-color: black;            
+color: white;
+}
