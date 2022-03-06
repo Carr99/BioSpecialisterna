@@ -12,7 +12,8 @@ document.querySelector('body').addEventListener('click', function (event) {
             if (id.includes('&')) {
                 let partialInfo = id.split('&');
                 if (partialInfo[0] == 'infoPage') {
-                    href = '/movies'; //should go to booking page
+                    href = '/booking'; //should go to booking page
+
                 } else {
                     return;
                 }
@@ -33,8 +34,21 @@ document.querySelector('body').addEventListener('click', function (event) {
     router();
 });
 
+function makeMenuChoiceActive(route) {
+    let aTagsInNav = document.querySelectorAll('nav a');
+    for (let aTag of aTagsInNav) {
+        aTag.classList.remove('active');
+        let href = aTag.getAttribute('href');
+        console.log(href)
+        if (href === route) {
+            aTag.classList.add('active');
+        }
+    }
+}
+
 async function router() {
     let route = location.pathname;
+    makeMenuChoiceActive(route);
     console.log(route);
     route = route === '/' ? '/start' : route;
     route = '/html' + route + '.html';
@@ -56,8 +70,12 @@ async function router() {
         registerPage();
     } else if (route === '/html/forgotPassword.html') {
         forgotPassword();
+
     } else if (route === '/html/movie-info.html') {
         movieInfoLister();
+
+    } else if (route === '/html/booking.html'){
+        booking();
     }
 }
 

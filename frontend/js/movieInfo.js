@@ -20,8 +20,8 @@ async function movieInfoLister() {
   <p class="movieDesc"><b>Actors: </b>Morgan Freeman, Tim Robbins, Bob Gunton ...</p>`;
   document.querySelector('.section1').innerHTML += htmlSection1;
   htmlSection2 = `<h2>Available Times</h2>
-    <article class="goBooking" id="infoPage&screeningId">2022-02-26, Stora salen, 10 of 100 left</article>
-    <article class="goBooking" id="infoPage&screeningId">2022-02-26, Stora salen, 10 of 100 left</article>
-    <article class="goBooking" id="infoPage&screeningId">2022-02-26, Stora salen, 10 of 100 left</article>`;
+    <article class="goBooking" id="infoPage&1">2022-02-26, Stora salen, 10 of 100 left</article>
+    <article class="goBooking" id="infoPage&2">2022-02-26, Stora salen, 10 of 100 left</article>
+    <article class="goBooking" id="infoPage&3">2022-02-26, Stora salen, 10 of 100 left</article>`;
   document.querySelector('.section2').innerHTML += htmlSection2;
 }
