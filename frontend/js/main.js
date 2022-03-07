@@ -13,6 +13,7 @@ document.querySelector('body').addEventListener('click', function (event) {
         let partialInfo = id.split('&');
         if (partialInfo[0] == 'infoPage') {
           href = '/booking'; //should go to booking page
+          screeningId = partialInfo[1]  // set id for sceeningId in the booking.js
 
         } else {
           return;
