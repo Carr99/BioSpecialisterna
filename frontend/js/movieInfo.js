@@ -11,15 +11,19 @@ async function movieInfoLister() {
 
 function printMovieInfo(result) {
   let htmlSection1 = '<h2>' + result.title + `</h2>
-    <img class="moviePoster" src = "` + result.imageUrl + `" alt = ""></img>
-  <iframe style="height:300px;width:68%;border:none;overflow:hidden;" src="` + result.trailerUrl + `" frameborder="0"
+  <div class="posterLeft">
+  <img class="moviePoster" src = "` + result.imageUrl + `" alt = ""></img>
+  </div>
+  <div class="trailerRight">
+  <iframe class="movieTrailer" src="` + result.trailerUrl + `" frameborder="0"
     allowfullscreen>
   </iframe>
+  </div>
   <div class="infoRow">
-  <div class="movieInfoBox">` + result.year + `</div>
-  <div class="movieInfoBox">` + result.genre + `</div>
-  <div class="movieInfoBox">` + result.length + `min</div>
-  <div class="movieInfoBox">` + result.ageGroup + `</div>
+  <div class="movieInfoBox"><p class="movieInfo">` + result.year + `</p></div>
+  <div class="movieInfoBox"><p class="movieInfo">` + result.genre + `</p></div>
+  <div class="movieInfoBox"><p class="movieInfo">` + result.length + `min</p></div>
+  <div class="movieInfoBox"><p class="movieInfo">` + result.ageGroup + `</p></div>
   </div>
   <p class="movieDesc">` + result.description + `</p>
   <p class="movieDesc"><b>Director: </b>` + result.director + `</p>
@@ -32,7 +36,7 @@ function printScreenings(screenings) {
   let htmlSection2 = `<h2>Available Times</h2>`;
   for (let screening of screenings) {
     console.log(screening)
-    htmlSection2 += '<article class="goBooking" id="infoPage&' + screening.screeningId + '"><p class="alignleft">' + screening.date + '</p><p class="aligncenter">' + screening.theaterName + '</p><p class="alignright">10 of 100</p></article>'
+    htmlSection2 += '<article class="goBooking" id="infoPage&' + screening.screeningId + '"><div class="columnMargin"><p class="column1">' + screening.date + '</p><p class="column2">' + screening.theaterName + '</p><p class="column3">10 of 100</p></div></article>'
   }
   document.querySelector('.section2').innerHTML += htmlSection2;
 }
