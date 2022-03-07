@@ -35,7 +35,6 @@ function printScreenings(screenings) {
   console.log(screenings);
   let htmlSection2 = `<h2>Available Times</h2>`;
   for (let screening of screenings) {
-    console.log(screening)
     htmlSection2 += '<article class="goBooking" id="infoPage&' + screening.screeningId + '"><div class="columnMargin"><p class="column1">' + screening.date + '</p><p class="column2">' + screening.theaterName + '</p><p class="column3">10 of 100</p></div></article>'
   }
   document.querySelector('.section2').innerHTML += htmlSection2;

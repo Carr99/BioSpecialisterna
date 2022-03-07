@@ -55,19 +55,25 @@
   height: fit-content;
 }
 
+.goBooking:nth-child(odd) {
+  background-color: #c9c2a9;
+}
+
 .goBooking:hover {
-  background-color: #8b8a86;
+  background-color: #302e28;
   border-radius: 10px;
   padding: 5px;
   margin-bottom: 8px;
   cursor: pointer;
+  transform: scale(1.02);
+  transition: all 0.4s;
+  color: antiquewhite;
 }
 
 .goBooking:after {
   content: "";
   display: table;
   clear: both;
-  overflow-wrap: break-word;
 }
 
 .columnMargin {
