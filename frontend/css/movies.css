@@ -11,7 +11,7 @@
   display: block;
   width: 780;
   height: 350px;
-  margin: 80px auto;
+  margin: 50px auto;
   overflow: hidden;
   border-radius: 10px;
   -webkit-transition: all 0.4s;
@@ -49,12 +49,14 @@
   position: relative;
   padding: 25px;
   height: 40%;
+  overflow: hidden;
 }
 
 .movie_card .info_section .movie_header h1 {
   color: #fff;
   font-weight: 400;
   margin-bottom: 10px;
+  padding: 0;
 }
 
 .movie_card .info_section .movie_header h4 {
@@ -125,6 +127,7 @@
     width: 80%;
     background-position: -100% 10% !important;
   }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -141,12 +144,18 @@
   .movie_header {
     width: 100%;
     margin-top: 85px;
+    padding: 10px !important;
   }
   .movie_header h1 {
     font-size: 24px;
   }
   .movie_desc {
-    width: 85%;
+    width: 90%;
+    padding: 10px !important;
+  }
+
+  .poster {
+    margin-right: 10px !important;
   }
 
   .movie_desc p {
@@ -224,4 +233,9 @@ margin: 0 auto;
 
 .filter_button:hover {
   scale: 1.06;
+}
+
+.filter_button_active {
+background-color: black;            
+color: white;
 }

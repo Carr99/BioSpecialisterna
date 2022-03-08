@@ -30,6 +30,23 @@ module.exports = function setupRESTapi(app) {
         res.json(tablesAndViews);
     });
 
+    app.get('/api/allMovieScreenings/' + ':id', (req, res) => {
+        // Create a prepared statement with a parameter :id as part of it
+        let stmt = db.prepare(`
+                SELECT Screening.*, Theater.theaterName 
+                FROM Screening, Theater
+                WHERE movieId = ${req.params.id}
+                AND Screening.theaterId = Theater.theaterId
+            `);
+        // Get the result or set it to null if no result found
+        let result = stmt.all() || null;
+        // Change status code of the response to 404 if no result found
+        if (result === null) {
+            res.status(404);
+        }
+        res.json(result);
+    });
+
     app.get('/api/seatsForScreening/screening' + '/:Id', (req, res) => {
 
 
@@ -56,8 +73,8 @@ module.exports = function setupRESTapi(app) {
 
 
     })
-   
-    app.post('/api/book', (req, res) =>{
+
+    app.post('/api/book', (req, res) => {
         let data = req.body;
         let email = data.email;
         let screeningId = data.screeningId;
@@ -71,13 +88,13 @@ module.exports = function setupRESTapi(app) {
         result = stmt.run();
 
         if (result.changes >= 1)
-        res.json({
-            "operation": "success"
-        })
+            res.json({
+                "operation": "success"
+            })
     });
-    app.get('/api/seatId' + '/:screeningId/:x/:y', (req, res) =>{
+    app.get('/api/seatId' + '/:screeningId/:x/:y', (req, res) => {
 
-        
+
         let stmt = db.prepare(`
         SELECT Seat.seatId
         From Seat
@@ -150,7 +167,7 @@ module.exports = function setupRESTapi(app) {
             }
             res.json(result);
         });
-        
+
     }
 
     function findUser(email) {

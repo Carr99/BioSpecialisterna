@@ -1,6 +1,29 @@
 .moviePoster {
-  height: 300px;
-  width: 30%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.movieTrailer {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  overflow: hidden;
+  border: none;
+}
+
+.posterLeft {
+  height: 250px;
+  width: 25%;
+  background-color: #182335;
+  display: inline-block;
+}
+
+.trailerRight {
+  height: 250px;
+  width: 65%;
+  background-color: #182335;
+  display: inline-block;
 }
 
 .movieDesc {
@@ -12,7 +35,6 @@
 }
 
 .movieInfoBox {
-  color: white;
   border: 2px solid black;
   border-radius: 5px;
   padding: 5px;
@@ -20,17 +42,59 @@
   display: inline;
 }
 
+.movieInfo {
+  color: white;
+  display: inline-block;
+}
+
 .goBooking {
   background-color: #eae4cc;
   border-radius: 10px;
   padding: 5px;
   margin-bottom: 8px;
+  height: fit-content;
+}
+
+.goBooking:nth-child(odd) {
+  background-color: #c9c2a9;
 }
 
 .goBooking:hover {
-  background-color: #8b8a86;
+  background-color: #302e28;
   border-radius: 10px;
   padding: 5px;
   margin-bottom: 8px;
   cursor: pointer;
+  transform: scale(1.02);
+  transition: all 0.4s;
+  color: antiquewhite;
+}
+
+.goBooking:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.columnMargin {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.column1 {
+  float: left;
+  width: 45%;
+  text-align: left;
+}
+
+.column2 {
+  float: left;
+  width: 20%;
+  text-align: left;
+}
+
+.column3 {
+  float: left;
+  width: 35%;
+  text-align: right;
 }
