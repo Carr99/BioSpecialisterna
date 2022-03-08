@@ -14,6 +14,23 @@ module.exports = function setupRESTapi(app, db) {
         res.json(tablesAndViews);
     });
 
+    app.get('/api/allMovieScreenings/' + ':id', (req, res) => {
+        // Create a prepared statement with a parameter :id as part of it
+        let stmt = db.prepare(`
+                SELECT Screening.*, Theater.theaterName 
+                FROM Screening, Theater
+                WHERE movieId = ${req.params.id}
+                AND Screening.theaterId = Theater.theaterId
+            `);
+        // Get the result or set it to null if no result found
+        let result = stmt.all() || null;
+        // Change status code of the response to 404 if no result found
+        if (result === null) {
+            res.status(404);
+        }
+        res.json(result);
+    });
+
     app.get('/api/seatsForScreening/screening' + '/:Id', (req, res) => {
 
 
@@ -104,6 +121,15 @@ module.exports = function setupRESTapi(app, db) {
             }
             res.json(result);
         });
+<<<<<<< HEAD
+=======
+
+    }
+
+    function findUser(email) {
+        return db.prepare('SELECT * FROM USER WHERE email = ?').get(email);
+    }
+>>>>>>> 2c901c77b26e3231b72ea227a8e9baf92742d5ea
 
     }
 }
