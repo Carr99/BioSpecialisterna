@@ -20,11 +20,12 @@ document.querySelector('body').addEventListener('click', function (event) {
       } else {
         return;
       }
-    }
+    }/*
     if (href.indexOf('http') === 0) {
       aTag.setAttribute('target', '_blank');
       return;
     }
+    */
   } else {
     return;
   }

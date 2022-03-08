@@ -105,13 +105,8 @@ function registerUser(data) {
         if (res.status === 409) {
             document.querySelector("#email").value = "Account already exists"
         } else {
-            let token = await res.json();
-            storeToken(token);
+
             // Redirect user to main page
         }
     });
-}
-
-function storeToken(token) {
-    localStorage.setItem('token', token);
 }
