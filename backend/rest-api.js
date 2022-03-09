@@ -91,7 +91,7 @@ module.exports = function setupRESTapi(app, db) {
     });
 
     // Loop through all tables and views and create REST-routes for them
-    for (let {name} of tablesAndViews) {
+    for (let { name } of tablesAndViews) {
         // Create a route to get (read) all posts from a table
         app.get('/api/' + name, (req, res) => {
             // create a prepared statement
@@ -121,15 +121,10 @@ module.exports = function setupRESTapi(app, db) {
             }
             res.json(result);
         });
-<<<<<<< HEAD
-=======
 
     }
 
     function findUser(email) {
         return db.prepare('SELECT * FROM USER WHERE email = ?').get(email);
-    }
->>>>>>> 2c901c77b26e3231b72ea227a8e9baf92742d5ea
-
     }
 }
