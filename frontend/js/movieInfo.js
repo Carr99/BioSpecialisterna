@@ -34,10 +34,13 @@ function printMovieInfo(result) {
   document.querySelector('.section1').innerHTML += htmlSection1;
 }
 
-function printScreenings() {
+async function printScreenings() {
   let htmlSection2 = '';
   for (let screening of screenings) {
-    htmlSection2 += '<article class="goBooking" id="infoPage&' + screening.screeningId + '"><div class="columnMargin"><p class="column1">' + screening.date + '</p><p class="column2">' + screening.theaterName + '</p><p class="column3">10 of 100</p></div></article>'
+    let result = await fetch('/api/seatsForScreening/screening/' + screening.screeningId)
+    result = await result.json();
+    let availableSeats = result[0].length - result[1].length;
+    htmlSection2 += '<article class="goBooking" id="infoPage&' + screening.screeningId + '"><div class="columnMargin"><p class="column1">' + screening.date + '</p><p class="column2">' + screening.theaterName + '</p><p class="column3">' + availableSeats + ' seats left</p></div></article>'
   }
   document.querySelector('.section2').innerHTML = htmlSection2;
 }
