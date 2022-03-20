@@ -31,6 +31,23 @@ module.exports = function setupRESTapi(app, db) {
         res.json(result);
     });
 
+    app.get('/api/userMovies', (req, res) => {
+        console.log(req.session.user.email);
+        // Create a prepared statement with a parameter :id as part of it
+        let stmt = db.prepare(`
+            Select bookingId, title, imageURL, date,theaterName 
+            from Movie, Screening, Theater, Booking 
+            where Movie.movieId = Screening.movieId and Screening.screeningId = Booking.screeningId and Theater.theaterId = Screening.theaterId and userEmail='${req.session.user.email}'
+            `);
+        // Get the result or set it to null if no result found
+        let result = stmt.all() || null;
+        // Change status code of the response to 404 if no result found
+        if (result === null) {
+            res.status(404);
+        }
+        res.json(result);
+    });
+
     app.get('/api/seatsForScreening/screening' + '/:Id', (req, res) => {
 
 

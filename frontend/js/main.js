@@ -75,6 +75,8 @@ async function router() {
 
   } else if (route === '/html/booking.html') {
     booking();
+  }else if (route === '/html/account.html') {
+    listUserMovies();
   }
 }
 
