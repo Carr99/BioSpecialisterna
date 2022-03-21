@@ -1,4 +1,8 @@
 async function getTrailers() {
+  if(reloadedPage){
+  document.location.reload(true);
+  reloadedPage = false;
+  }
   let rawData = await fetch('/api/movie/');
   let movies = await rawData.json();
 

@@ -31,7 +31,7 @@ module.exports = function setupRESTapi(app, db) {
         res.json(result);
     });
 
-    app.get('/api/userMovies', (req, res) => {
+    app.get('/api/userMovies/', (req, res) => {
         console.log(req.session.user.email);
         // Create a prepared statement with a parameter :id as part of it
         let stmt = db.prepare(`
@@ -47,6 +47,23 @@ module.exports = function setupRESTapi(app, db) {
         }
         res.json(result);
     });
+
+    app.delete('/api/deleteBooking', (req, res) => {
+        let data = req.body;
+        let bookingId = data.bookingId;
+        
+
+        let stmt = db.prepare(`
+        DELETE FROM Booking WHERE bookingId=${bookingId}
+        `);
+        result = stmt.run();
+
+        if (result.changes >= 1)
+            res.json({
+                "operation": "success"
+            })
+    });
+    
 
     app.get('/api/seatsForScreening/screening' + '/:Id', (req, res) => {
 
