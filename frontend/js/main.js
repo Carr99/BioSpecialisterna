@@ -21,11 +21,12 @@ document.querySelector('body').addEventListener('click', function (event) {
       } else {
         return;
       }
-    }
+    }/*
     if (href.indexOf('http') === 0) {
       aTag.setAttribute('target', '_blank');
       return;
     }
+    */
   } else {
     return;
   }
@@ -74,6 +75,8 @@ async function router() {
 
   } else if (route === '/html/booking.html') {
     booking();
+  }else if (route === '/html/account.html') {
+    listUserMovies();
   }
 }
 

@@ -1,29 +1,13 @@
-// Import the better-sqlite3 module
-const betterSqlite3 = require('better-sqlite3');
-
-// Lib to generate JWT Token
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-// Global access
-dotenv.config();
-
-// Connect to a SQLite database
-const db = betterSqlite3('backend/bioSpecialisterna.db');
-
-// Storing users and their tokens in memory before converting into DB
-let usersAndTokens = {}
-
-
-// Get the names of all the tables and views in the db
-let tablesAndViews = db.prepare(`
-    SELECT name, type
-    FROM sqlite_schema
-    WHERE (type = 'table' OR type = 'view')
-      AND name NOT LIKE 'sqlite_%'
-`).all();
-
 // Export the function setupRESTapi as a Node.js module
-module.exports = function setupRESTapi(app) {
+module.exports = function setupRESTapi(app, db) {
+
+    // Get the names of all the tables and views in the db
+    let tablesAndViews = db.prepare(`
+        SELECT name, type
+        FROM sqlite_schema
+        WHERE (type = 'table' OR type = 'view')
+          AND name NOT LIKE 'sqlite_%'
+    `).all();
 
     // Add a special route that will list all the tables and views
     app.get('/api/tablesAndViews', (req, res) => {
@@ -47,12 +31,47 @@ module.exports = function setupRESTapi(app) {
         res.json(result);
     });
 
+    app.get('/api/userMovies/', (req, res) => {
+        console.log(req.session.user.email);
+        // Create a prepared statement with a parameter :id as part of it
+        let stmt = db.prepare(`
+            Select bookingId, title, imageURL, date,theaterName 
+            from Movie, Screening, Theater, Booking 
+            where Movie.movieId = Screening.movieId and Screening.screeningId = Booking.screeningId and Theater.theaterId = Screening.theaterId and userEmail='${req.session.user.email}'
+            `);
+        // Get the result or set it to null if no result found
+        let result = stmt.all() || null;
+        // Change status code of the response to 404 if no result found
+        if (result === null) {
+            res.status(404);
+        }
+        res.json(result);
+    });
+
+    app.delete('/api/deleteBooking', (req, res) => {
+        let data = req.body;
+        let bookingId = data.bookingId;
+        
+
+        let stmt = db.prepare(`
+        DELETE FROM Booking WHERE bookingId=${bookingId}
+        `);
+        result = stmt.run();
+
+        if (result.changes >= 1)
+            res.json({
+                "operation": "success"
+            })
+    });
+    
+
     app.get('/api/seatsForScreening/screening' + '/:Id', (req, res) => {
 
 
         let totalStmt = db.prepare(`
             SELECT Seat.seatId as id, Seat.row, Seat.column
-            From Seat, Screening
+            From Seat,
+                 Screening
             WHERE screeningId == :Id AND Seat.theaterId == Screening.theaterId
         `);
 
@@ -60,7 +79,8 @@ module.exports = function setupRESTapi(app) {
 
         let bookedStmt = db.prepare(`
             SELECT Seat.seatId as id, Seat.row, Seat.column
-            From Seat, Booking
+            From Seat,
+                 Booking
             WHERE Booking.screeningId == :Id AND Seat.seatId == Booking.seatId;
         `)
 
@@ -69,7 +89,6 @@ module.exports = function setupRESTapi(app) {
         let result = [totalSeats, bookedSeats]
 
         res.json(result);
-
 
 
     })
@@ -96,44 +115,13 @@ module.exports = function setupRESTapi(app) {
 
 
         let stmt = db.prepare(`
-        SELECT Seat.seatId
-        From Seat
-        Where Seat.theaterId == (Select theaterId FROM Screening WHERE screeningId == :screeningId) AND row == :y AND column == :x
+            SELECT Seat.seatId
+            From Seat
+            Where Seat.theaterId == (Select theaterId FROM Screening WHERE screeningId == :screeningId) AND row == :y AND column == :x
 
-    `);
+        `);
         let seatId = stmt.all(req.params);
         res.json(seatId);
-    });
-
-    app.post('/api/register', (req, res) => {
-        let data = req.body;
-        let email = data.email;
-        let password = data.password;
-
-        let user = findUser(email);
-        if (user === undefined) {
-            let stmt = db.prepare(`
-                INSERT INTO User ('email', 'password', 'isAdmin')
-                VALUES ('${email}', '${password}', false);
-            `);
-            let result = stmt.run();
-            if (result.changes >= 1)
-                res.json(generateJWTToken(user))
-        } else {
-            res.status(409).json({ "operation": "User already exists" })
-        }
-    });
-
-    app.post('/api/login', (req, res) => {
-        let data = req.body;
-        let email = data.email;
-        let password = data.password;
-
-        let user = findUser(email);
-        if (user !== undefined)
-            res.json(generateJWTToken(user));
-        else
-            res.status(401);
     });
 
     // Loop through all tables and views and create REST-routes for them
@@ -173,32 +161,4 @@ module.exports = function setupRESTapi(app) {
     function findUser(email) {
         return db.prepare('SELECT * FROM USER WHERE email = ?').get(email);
     }
-
-    function generateJWTToken(user) {
-        let jwtSecretKey = process.env.JWT_SECRET_KEY;
-        let data = {
-            time: Date(),
-            userId: 12,
-        }
-        const token = jwt.sign(data, jwtSecretKey);
-        return token;
-    }
-
-    // Validates if client JWT Token is valid
-    function validateJWTToken(token) {
-        let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
-        let jwtSecretKey = process.env.JWT_SECRET_KEY;
-
-        try {
-            const verified = jwt.verify(token, jwtSecretKey);
-            if (verified) {
-                return true;
-            } else {
-                return false
-            }
-        } catch (error) {
-            return error;
-        }
-    }
-
 }

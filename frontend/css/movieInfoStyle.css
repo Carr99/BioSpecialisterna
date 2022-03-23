@@ -98,3 +98,15 @@
   width: 35%;
   text-align: right;
 }
+
+.dropFilter {
+  display: inline-block;
+  width: 200px;
+  font-size: 15px;
+  background-color: #182335;
+  border-radius: 20px;
+  padding: 5px;
+  padding-left: 10px;
+  color: white;
+  margin-bottom: 10px;
+}
