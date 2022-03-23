@@ -51,7 +51,7 @@ module.exports = function setupRESTapi(app, db) {
     app.delete('/api/deleteBooking', (req, res) => {
         let data = req.body;
         let bookingId = data.bookingId;
-        
+
 
         let stmt = db.prepare(`
         DELETE FROM Booking WHERE bookingId=${bookingId}
@@ -63,7 +63,7 @@ module.exports = function setupRESTapi(app, db) {
                 "operation": "success"
             })
     });
-    
+
 
     app.get('/api/seatsForScreening/screening' + '/:Id', (req, res) => {
 
@@ -95,14 +95,13 @@ module.exports = function setupRESTapi(app, db) {
 
     app.post('/api/book', (req, res) => {
         let data = req.body;
-        let email = data.email;
         let screeningId = data.screeningId;
         let ticketType = data.ageGroup;
         let seatId = data.seatId;
 
         let stmt = db.prepare(`
             INSERT INTO Booking ('userEmail', 'seatId', 'ticketType', 'screeningId')
-            VALUES ('${email}', ${seatId}, '${ticketType}', ${screeningId});
+            VALUES ('${req.session.user}', ${seatId}, '${ticketType}', ${screeningId});
         `);
         result = stmt.run();
 

@@ -1,4 +1,5 @@
-document.querySelector('body').addEventListener('click', function (event) {
+let intervalId = 0;
+document.querySelector('body').addEventListener('click', async function (event) {
 
   let aTag = event.target.closest('a');
   let article = event.target.closest('article');
@@ -12,7 +13,13 @@ document.querySelector('body').addEventListener('click', function (event) {
       if (id.includes('&')) {
         let partialInfo = id.split('&');
         if (partialInfo[0] == 'infoPage') {
-          href = '/booking'; //should go to booking page
+          if (await checkLoggin()) {
+            console.log("loggin check passed");
+            href = '/booking'; //should go to booking page
+          } else {
+            href = '/login';
+          }
+
           screeningId = partialInfo[1]  // set id for sceeningId in the booking.js
 
         } else {
@@ -48,6 +55,10 @@ function makeMenuChoiceActive(route) {
 }
 
 async function router() {
+  if (intervalId) {
+    clearInterval(intervalId);
+    intervalId = 0;
+  }
   let route = location.pathname;
   makeMenuChoiceActive(route);
   route = route === '/' ? '/start' : route;
@@ -57,6 +68,7 @@ async function router() {
   let content = await (await fetch(route)).text();
   content.includes('<title>Error</title > ') && location.replace(' / ');
   document.querySelector('main').innerHTML = content;
+
 
   if (route === '/html/start.html') {
     getTrailers();
@@ -75,9 +87,11 @@ async function router() {
 
   } else if (route === '/html/booking.html') {
     booking();
-  }else if (route === '/html/account.html') {
+  } else if (route === '/html/account.html') {
     listUserMovies();
   }
+
+
 }
 
 window.addEventListener('popstate', router);
@@ -109,6 +123,20 @@ function burgerMenuSlider() {
     body.classList.toggle('noscroll')
   });
 
+}
+async function checkLoggin() {
+  let rawData = await fetch('http://localhost:3000/api/login', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  });
+  let loggedIn = await rawData.json();
+
+  if (loggedIn['_error']) {
+    console.log("not logged in");
+    return false;
+  }
+  console.log(loggedIn);
+  return true;
 }
 burgerMenuSlider();
 router();

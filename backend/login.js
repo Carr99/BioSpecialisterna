@@ -12,14 +12,14 @@ module.exports = function (app, db) {
                 req.session.user = user;
                 res.json(user)
             } else
-                res.status(401).json({"status": "user not found"})
+                res.status(401).json({ "status": "user not found" })
         } else
-            res.status(401).json({"status": "user not found"});
+            res.status(401).json({ "status": "user not found" });
     });
 
     app.get('/api/login', (req, res) => {
         console.log(req.session.user)
-        res.json(req.session.user || {_error: "Not logged in"});
+        res.json(req.session.user || { _error: "Not logged in" });
     });
 
     app.post('/api/register', (req, res) => {
@@ -37,13 +37,13 @@ module.exports = function (app, db) {
             if (result.changes >= 1)
                 res.status(200)
         } else {
-            res.status(409).json({"operation": "User already exists"})
+            res.status(409).json({ "operation": "User already exists" })
         }
     });
 
     app.delete('/api/login', (req, res) => {
         delete req.session.user;
-        res.json({success: 'logged out'})
+        res.json({ success: 'logged out' })
     })
 
     function findUser(email) {
