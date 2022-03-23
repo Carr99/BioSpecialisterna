@@ -95,13 +95,15 @@ module.exports = function setupRESTapi(app, db) {
 
     app.post('/api/book', (req, res) => {
         let data = req.body;
+        let email = req.session.user["email"];
         let screeningId = data.screeningId;
         let ticketType = data.ageGroup;
         let seatId = data.seatId;
 
+        console.log("user: " + email);
         let stmt = db.prepare(`
             INSERT INTO Booking ('userEmail', 'seatId', 'ticketType', 'screeningId')
-            VALUES ('${req.session.user}', ${seatId}, '${ticketType}', ${screeningId});
+            VALUES ('${email}', ${seatId}, '${ticketType}', ${screeningId});
         `);
         result = stmt.run();
 

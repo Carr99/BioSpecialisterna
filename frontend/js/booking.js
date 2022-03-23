@@ -227,6 +227,8 @@ async function bookTickets(screeningId, email) {
             body: JSON.stringify(query)
         });
     }
+    selection = [];
+    selected = false;
 }
 
 
