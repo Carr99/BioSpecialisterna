@@ -1,13 +1,13 @@
 let tileHeight;
 let tileWidth;
 let map;
+let price = 0;
 let juniorTickets = 0;
 let standardTickets = 0;
 let seniorTickets = 0;
 let selected = false;
 let selection = [];
 let screeningId = 1;
-let email = "dummy@gmail.com";
 function booking() {
 
 
@@ -27,11 +27,13 @@ function booking() {
     });
     canvas.addEventListener("mouseleave", function (e) {
         if (!selected) {
+            selection = [];
             draw(ctx);
         }
     })
     let bookButton = document.querySelector("#createBooking");
 
+    let priceHeader = document.querySelector("#priceHeader");
     let juniorMinus = document.querySelector("#juniorMinus");
     let juniorPlus = document.querySelector("#juniorPlus");
     let standardMinus = document.querySelector("#standardMinus");
@@ -44,39 +46,51 @@ function booking() {
     let seniorCount = document.querySelector("#seniorCount");
 
     bookButton.addEventListener("click", function (e) {
-        bookTickets(screeningId, email);
+        bookTickets(screeningId);
     });
 
 
     juniorMinus.addEventListener("click", () => {
         if (juniorTickets > 0) {
+            price -= 65;
             juniorTickets--;
             juniorCount.innerHTML = `<h3>${juniorTickets}</h3>`;
+            priceHeader.textContent = price + " Kr";
         }
     });
     juniorPlus.addEventListener("click", () => {
+        price += 65;
         juniorTickets++;
         juniorCount.innerHTML = `<h3>${juniorTickets}</h3>`;
+        priceHeader.textContent = price + " Kr";
     });
     standardMinus.addEventListener("click", () => {
         if (standardTickets > 0) {
+            price -= 85;
             standardTickets--;
             standardCount.innerHTML = `<h3>${standardTickets}</h3>`;
+            priceHeader.textContent = price + " Kr";
         }
     });
     standardPlus.addEventListener("click", () => {
+        price += 85;
         standardTickets++;
         standardCount.innerHTML = `<h3>${standardTickets}</h3>`;
+        priceHeader.textContent = price + " Kr";
     });
     seniorMinus.addEventListener("click", () => {
         if (seniorTickets > 0) {
+            price -= 75;
             seniorTickets--;
             seniorCount.innerHTML = `<h3>${seniorTickets}</h3>`;
+            priceHeader.textContent = price + " Kr";
         }
     });
     seniorPlus.addEventListener("click", () => {
+        price += 75;
         seniorTickets++;
         seniorCount.innerHTML = `<h3>${seniorTickets}</h3>`;
+        priceHeader.textContent = price + " Kr";
     });
 
 
@@ -211,40 +225,44 @@ function draw(ctx, selection = [[-1, -1]], color = "") {
         }
     }
 }
-async function bookTickets(screeningId, email) {
-    let rawData = await fetch("http://localhost:3000/api/seatsForScreening/screening/" + screeningId)
-    let seats = await rawData.json();
+async function bookTickets(screeningId) {
+    if (selection.length > 0) {
+        let rawData = await fetch("http://localhost:3000/api/seatsForScreening/screening/" + screeningId)
+        let seats = await rawData.json();
 
-    for (const seat of selection) {
-        for (const bookedSeat of seats[1]) {
-            if (seat[0] === bookedSeat.row && seat[1] === bookedSeat.column) {
-                return false;
+        for (const seat of selection) {
+            for (const bookedSeat of seats[1]) {
+                if (seat[0] === bookedSeat.row && seat[1] === bookedSeat.column) {
+                    return false;
+                }
             }
         }
+        for (const seat of selection) {
+
+            let rawData = await fetch('http://localhost:3000/api/seatId/' + screeningId + '/' + seat[1] + '/' + seat[0], {
+                method: "GET",
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            let seatId = await rawData.json();
+
+            let query = {
+
+                "screeningId": screeningId,
+                "ageGroup": seat[2],
+                "seatId": seatId[0].seatId
+            };
+
+            rawData = await fetch('http://localhost:3000/api/book', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(query)
+            });
+        }
+        selection = [];
+        selected = false;
+        alert("booking created, visit your account to view bookings.")
+    } else {
+        alert("Please select seats to book.");
     }
-    for (const seat of selection) {
-
-        let rawData = await fetch('http://localhost:3000/api/seatId/' + screeningId + '/' + seat[1] + '/' + seat[0], {
-            method: "GET",
-            headers: { 'Content-Type': 'application/json' }
-        });
-
-        let seatId = await rawData.json();
-
-        let query = {
-
-            "screeningId": screeningId,
-            "ageGroup": seat[2],
-            "seatId": seatId[0].seatId
-        };
-
-        rawData = await fetch('http://localhost:3000/api/book', {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(query)
-        });
-    }
-    selection = [];
-    selected = false;
-    alert("booking created, visit your account to view bookings.")
 }
