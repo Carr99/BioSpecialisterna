@@ -98,6 +98,14 @@ async function populateSeats() {
 
     for (let seat of seats[1]) {
         map[seat.row][seat.column] = 1;
+        if (selected) {
+            for (selectedSeat of selection) {
+                if (selectedSeat[0] === seat.row && selectedSeat[1] === seat.column) {
+                    selection = []
+                    selected = false;
+                }
+            }
+        }
     }
     tileHeight = canvas.width / map.length;
     tileWidth = canvas.height / map[0].length;
@@ -204,8 +212,17 @@ function draw(ctx, selection = [[-1, -1]], color = "") {
     }
 }
 async function bookTickets(screeningId, email) {
+    let rawData = await fetch("http://localhost:3000/api/seatsForScreening/screening/" + screeningId)
+    let seats = await rawData.json();
+
     for (const seat of selection) {
-        console.log(seat);
+        for (const bookedSeat of seats[1]) {
+            if (seat[0] === bookedSeat.row && seat[1] === bookedSeat.column) {
+                return false;
+            }
+        }
+    }
+    for (const seat of selection) {
 
         let rawData = await fetch('http://localhost:3000/api/seatId/' + screeningId + '/' + seat[1] + '/' + seat[0], {
             method: "GET",
@@ -229,14 +246,5 @@ async function bookTickets(screeningId, email) {
     }
     selection = [];
     selected = false;
+    alert("booking created, visit your account to view bookings.")
 }
-
-
-
-/*
-
-rawData = await fetch('http://localhost:3000/api/book', {
-    method: "POST",
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(query)
-}); */
