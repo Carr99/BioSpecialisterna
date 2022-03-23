@@ -103,6 +103,14 @@ async function populateSeats() {
     tileWidth = canvas.height / map[0].length;
 
     draw(ctx);
+    if (selection.length > 0) {
+        if (selected) {
+            draw(ctx, selection, "blue");
+        } else {
+            draw(ctx, selection, "green");
+        }
+    }
+
     return true;
 
 
