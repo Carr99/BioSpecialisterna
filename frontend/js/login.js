@@ -87,19 +87,27 @@ function registerNewAccount() {
 function sendLogin(data) {
     fetch("http://localhost:3000/api/login", {
         method: "POST",
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     }).then(res => {
         if (res.status === 409) {
             document.querySelector("#email").value = "Account already exists"
+        } else {
+            history.pushState(null, null, '/');
+            router();
+            let loginLink = document.getElementById('loginLink');
+            loginLink.hidden = true;
+            let accountLink = document.getElementById('accountLink');
+            accountLink.hidden = false;
         }
     });
+
 }
 
 function registerUser(data) {
     fetch("http://localhost:3000/api/register", {
         method: "POST",
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     }).then(async res => {
         if (res.status === 409) {
@@ -109,4 +117,5 @@ function registerUser(data) {
             // Redirect user to main page
         }
     });
+
 }
